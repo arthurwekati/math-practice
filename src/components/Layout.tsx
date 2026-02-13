@@ -6,10 +6,13 @@ interface LayoutProps {
 
 export default function Layout({ children }: LayoutProps) {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
-      <header className="bg-white shadow-sm">
-        <div className="max-w-4xl mx-auto px-4 py-4">
-          <h1 className="text-2xl font-bold text-indigo-600">Math Practice</h1>
+    <div className="min-h-screen bg-gradient-to-b from-kid-sky/20 via-white to-kid-mint/20">
+      <header className="bg-white/90 backdrop-blur-sm border-b-4 border-kid-orange/30 shadow-sm">
+        <div className="max-w-4xl mx-auto px-4 py-5">
+          <h1 className="text-2xl md:text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-kid-orange to-kid-berry flex items-center gap-2">
+            <span className="text-4xl" aria-hidden>🧮</span>
+            Math Practice
+          </h1>
         </div>
       </header>
       <main className="max-w-4xl mx-auto px-4 py-8">

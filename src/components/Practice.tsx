@@ -112,7 +112,12 @@ export default function Practice() {
   }, [selectedChoice, isFlipped, handleSelfAssessment, handleFlip]);
 
   if (!operation || !question) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex flex-col items-center justify-center py-20">
+        <p className="text-4xl mb-4">⏳</p>
+        <p className="text-xl font-bold text-gray-700">Loading your question...</p>
+      </div>
+    );
   }
 
   const isCorrect = selectedChoice === question.correctAnswer;
@@ -122,31 +127,30 @@ export default function Practice() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h2 className="text-2xl font-bold text-gray-800">
+          <h2 className="text-2xl md:text-3xl font-extrabold text-gray-800">
             {operationLabels[operation]}
           </h2>
+          <p className="text-gray-600 mt-1">Pick your answer, then flip the card! 🃏</p>
         </div>
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2">
-            <label htmlFor="level" className="text-sm font-medium text-gray-700">
-              Level:
-            </label>
+            <span className="text-sm font-bold text-gray-700">Difficulty:</span>
             <select
               id="level"
               value={level}
               onChange={(e) => setLevel(Number(e.target.value))}
-              className="border border-gray-300 rounded px-3 py-1 text-sm"
+              className="border-2 border-kid-sky/50 rounded-xl px-3 py-2 text-base font-bold bg-white focus:ring-2 focus:ring-kid-orange"
             >
               {[1, 2, 3, 4, 5].map((lvl) => (
                 <option key={lvl} value={lvl}>
-                  {lvl}
+                  Level {lvl} {lvl <= 2 ? '(easier)' : lvl >= 4 ? '(harder)' : ''}
                 </option>
               ))}
             </select>
           </div>
           <button
             onClick={() => navigate('/')}
-            className="text-sm text-indigo-600 hover:text-indigo-800 font-medium"
+            className="btn-kid text-kid-orange hover:text-kid-orange/80 font-bold text-base"
           >
             ← Home
           </button>
@@ -157,16 +161,16 @@ export default function Practice() {
       <div className="flex justify-center">
         <div className="w-full max-w-md">
           <div className="relative perspective-1000">
-            {/* Card Container */}
             <div
-              className={`card-flip-container bg-white rounded-lg shadow-lg p-8 transition-transform duration-500 ${
+              className={`card-flip-container bg-white rounded-3xl shadow-xl border-4 border-gray-100 p-8 transition-transform duration-500 ${
                 isFlipped ? 'flipped' : ''
               }`}
             >
               {/* Front Side */}
               <div className="card-front space-y-6">
                 <div className="text-center">
-                  <h3 className="text-3xl font-bold text-gray-800 mb-6">
+                  <p className="text-sm font-bold text-kid-berry uppercase mb-2">Solve this!</p>
+                  <h3 className="text-4xl md:text-5xl font-extrabold text-gray-800 mb-6">
                     {question.text} = ?
                   </h3>
                 </div>
@@ -178,10 +182,10 @@ export default function Practice() {
                       role="radio"
                       aria-checked={selectedChoice === choice}
                       aria-label={`Choice ${index + 1}: ${choice}`}
-                      className={`p-4 rounded-lg border-2 transition-all focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 ${
+                      className={`btn-kid p-5 rounded-2xl border-4 text-xl font-bold transition-all focus:outline-none focus:ring-4 focus:ring-kid-yellow focus:ring-offset-2 ${
                         selectedChoice === choice
-                          ? 'border-indigo-600 bg-indigo-50 font-semibold'
-                          : 'border-gray-300 hover:border-indigo-400 hover:bg-gray-50'
+                          ? 'border-kid-sky bg-kid-sky/20 text-gray-800'
+                          : 'border-gray-200 hover:border-kid-sky/50 hover:bg-gray-50 text-gray-800'
                       }`}
                     >
                       {choice}
@@ -192,43 +196,47 @@ export default function Practice() {
                   onClick={handleFlip}
                   disabled={!selectedChoice}
                   aria-label="Flip card to see answer"
-                  className={`w-full py-3 rounded-lg font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 ${
+                  className={`w-full py-4 rounded-2xl font-bold text-lg transition-all focus:outline-none focus:ring-4 focus:ring-kid-orange focus:ring-offset-2 ${
                     selectedChoice
-                      ? 'bg-indigo-600 text-white hover:bg-indigo-700'
-                      : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                      ? 'btn-kid bg-kid-orange text-white hover:bg-kid-orange/90 shadow-lg'
+                      : 'bg-gray-200 text-gray-400 cursor-not-allowed'
                   }`}
                 >
-                  Flip Card
+                  🔄 Flip card to see answer
                 </button>
               </div>
 
               {/* Back Side */}
               <div className="card-back space-y-6">
                 <div className="text-center">
-                  <div className={`text-4xl mb-4 ${isCorrect ? 'text-green-500' : 'text-red-500'}`}>
-                    {isCorrect ? '✓' : '✗'}
+                  <div className={`text-6xl mb-4 ${isCorrect ? 'text-kid-mint' : 'text-red-400'}`}>
+                    {isCorrect ? '🌟' : '🤔'}
                   </div>
+                  <p className={`text-lg font-bold ${isCorrect ? 'text-kid-mint' : 'text-gray-600'}`}>
+                    {isCorrect ? 'Nice job!' : 'Keep practicing!'}
+                  </p>
                   <h3 className="text-2xl font-bold text-gray-800 mb-2">
                     {question.text} = {question.correctAnswer}
                   </h3>
                   <p className="text-gray-600">
-                    You selected: <span className="font-semibold">{selectedChoice}</span>
+                    You picked: <span className="font-bold text-gray-800">{selectedChoice}</span>
                   </p>
                 </div>
+                <p className="text-center text-sm text-gray-500 font-medium">Did you get it right?</p>
                 <div className="flex gap-3">
                   <button
                     onClick={() => handleSelfAssessment(true)}
                     aria-label="Mark as correct"
-                    className="flex-1 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+                    className="flex-1 btn-kid py-4 bg-kid-mint text-white rounded-2xl hover:bg-kid-mint/90 font-bold text-lg shadow-lg focus:outline-none focus:ring-4 focus:ring-kid-mint focus:ring-offset-2"
                   >
-                    I got it right
+                    👍 Yes!
                   </button>
                   <button
                     onClick={() => handleSelfAssessment(false)}
                     aria-label="Mark as incorrect"
-                    className="flex-1 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors font-medium focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+                    className="flex-1 btn-kid py-4 bg-red-400 text-white rounded-2xl hover:bg-red-500 font-bold text-lg shadow-lg focus:outline-none focus:ring-4 focus:ring-red-300 focus:ring-offset-2"
                   >
-                    I got it wrong
+                    👎 Not yet
                   </button>
                 </div>
               </div>

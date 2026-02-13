@@ -93,17 +93,18 @@ export default function Review() {
   if (mistakes.mistakeIds.length === 0) {
     return (
       <div className="text-center space-y-6">
-        <h2 className="text-3xl font-bold text-gray-800">Review Mistakes</h2>
-        <div className="bg-white rounded-lg shadow-md p-8">
-          <div className="text-6xl mb-4">🎉</div>
-          <p className="text-gray-600 mb-6 text-lg">
-            No mistakes to review! Great job!
+        <h2 className="text-3xl font-extrabold text-gray-800">📚 Review Mistakes</h2>
+        <div className="bg-white rounded-3xl shadow-xl border-4 border-gray-100 p-10 max-w-md mx-auto">
+          <div className="text-7xl mb-4">🎉</div>
+          <p className="text-xl font-bold text-gray-800 mb-2">You're all caught up!</p>
+          <p className="text-gray-600 mb-8">
+            No mistakes to practice right now. You're doing great!
           </p>
           <button
             onClick={() => navigate('/')}
-            className="bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 transition-colors font-medium"
+            className="btn-kid bg-kid-berry text-white px-8 py-4 rounded-2xl hover:bg-kid-berry/90 font-bold text-lg shadow-lg"
           >
-            Back to Home
+            ← Back to Home
           </button>
         </div>
       </div>
@@ -113,9 +114,10 @@ export default function Review() {
   if (!question) {
     return (
       <div className="text-center space-y-6">
-        <h2 className="text-3xl font-bold text-gray-800">Review Mistakes</h2>
-        <div className="bg-white rounded-lg shadow-md p-8">
-          <p className="text-gray-600">Loading...</p>
+        <h2 className="text-3xl font-extrabold text-gray-800">📚 Review Mistakes</h2>
+        <div className="bg-white rounded-3xl shadow-xl p-10">
+          <p className="text-4xl mb-4">⏳</p>
+          <p className="text-xl font-bold text-gray-700">Loading...</p>
         </div>
       </div>
     );
@@ -129,23 +131,23 @@ export default function Review() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h2 className="text-2xl font-bold text-gray-800">Review Mistakes</h2>
-          <p className="text-sm text-gray-600 mt-1">
-            {currentIndex + 1} of {mistakes.mistakeIds.length} mistakes
+          <h2 className="text-2xl md:text-3xl font-extrabold text-gray-800">📚 Review Mistakes</h2>
+          <p className="text-gray-600 mt-1 font-medium">
+            Question {currentIndex + 1} of {mistakes.mistakeIds.length}
           </p>
         </div>
         <button
           onClick={() => navigate('/')}
-          className="text-sm text-indigo-600 hover:text-indigo-800 font-medium"
+          className="btn-kid text-kid-orange hover:text-kid-orange/80 font-bold"
         >
           ← Home
         </button>
       </div>
 
       {/* Progress Bar */}
-      <div className="w-full bg-gray-200 rounded-full h-2">
+      <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
         <div
-          className="bg-indigo-600 h-2 rounded-full transition-all duration-300"
+          className="bg-kid-berry h-3 rounded-full transition-all duration-300"
           style={{ width: `${progress}%` }}
         />
       </div>
@@ -155,14 +157,14 @@ export default function Review() {
         <div className="w-full max-w-md">
           <div className="relative perspective-1000">
             <div
-              className={`card-flip-container bg-white rounded-lg shadow-lg p-8 transition-transform duration-500 ${
+              className={`card-flip-container bg-white rounded-3xl shadow-xl border-4 border-gray-100 p-8 transition-transform duration-500 ${
                 isFlipped ? 'flipped' : ''
               }`}
             >
-              {/* Front Side */}
               <div className="card-front space-y-6">
                 <div className="text-center">
-                  <h3 className="text-3xl font-bold text-gray-800 mb-6">
+                  <p className="text-sm font-bold text-kid-berry uppercase mb-2">Try again!</p>
+                  <h3 className="text-4xl md:text-5xl font-extrabold text-gray-800 mb-6">
                     {question.text} = ?
                   </h3>
                 </div>
@@ -174,10 +176,10 @@ export default function Review() {
                       role="radio"
                       aria-checked={selectedChoice === choice}
                       aria-label={`Choice ${index + 1}: ${choice}`}
-                      className={`p-4 rounded-lg border-2 transition-all focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 ${
+                      className={`btn-kid p-5 rounded-2xl border-4 text-xl font-bold transition-all focus:outline-none focus:ring-4 focus:ring-kid-yellow ${
                         selectedChoice === choice
-                          ? 'border-indigo-600 bg-indigo-50 font-semibold'
-                          : 'border-gray-300 hover:border-indigo-400 hover:bg-gray-50'
+                          ? 'border-kid-sky bg-kid-sky/20 text-gray-800'
+                          : 'border-gray-200 hover:border-kid-sky/50 hover:bg-gray-50 text-gray-800'
                       }`}
                     >
                       {choice}
@@ -188,43 +190,45 @@ export default function Review() {
                   onClick={handleFlip}
                   disabled={!selectedChoice}
                   aria-label="Flip card to see answer"
-                  className={`w-full py-3 rounded-lg font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 ${
+                  className={`w-full py-4 rounded-2xl font-bold text-lg focus:outline-none focus:ring-4 focus:ring-kid-orange ${
                     selectedChoice
-                      ? 'bg-indigo-600 text-white hover:bg-indigo-700'
-                      : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                      ? 'btn-kid bg-kid-orange text-white hover:bg-kid-orange/90 shadow-lg'
+                      : 'bg-gray-200 text-gray-400 cursor-not-allowed'
                   }`}
                 >
-                  Flip Card
+                  🔄 Flip card
                 </button>
               </div>
 
-              {/* Back Side */}
               <div className="card-back space-y-6">
                 <div className="text-center">
-                  <div className={`text-4xl mb-4 ${isCorrect ? 'text-green-500' : 'text-red-500'}`}>
-                    {isCorrect ? '✓' : '✗'}
+                  <div className={`text-6xl mb-4 ${isCorrect ? 'text-kid-mint' : 'text-red-400'}`}>
+                    {isCorrect ? '🌟' : '🤔'}
                   </div>
+                  <p className={`text-lg font-bold ${isCorrect ? 'text-kid-mint' : 'text-gray-600'}`}>
+                    {isCorrect ? 'You got it!' : 'Keep trying!'}
+                  </p>
                   <h3 className="text-2xl font-bold text-gray-800 mb-2">
                     {question.text} = {question.correctAnswer}
                   </h3>
                   <p className="text-gray-600">
-                    You selected: <span className="font-semibold">{selectedChoice}</span>
+                    You picked: <span className="font-bold text-gray-800">{selectedChoice}</span>
                   </p>
                 </div>
                 <div className="flex gap-3">
                   <button
                     onClick={() => handleSelfAssessment(true)}
                     aria-label="Mark as correct"
-                    className="flex-1 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+                    className="flex-1 btn-kid py-4 bg-kid-mint text-white rounded-2xl hover:bg-kid-mint/90 font-bold text-lg shadow-lg focus:outline-none focus:ring-4 focus:ring-kid-mint"
                   >
-                    I got it right
+                    👍 Yes!
                   </button>
                   <button
                     onClick={() => handleSelfAssessment(false)}
                     aria-label="Mark as incorrect"
-                    className="flex-1 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors font-medium focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+                    className="flex-1 btn-kid py-4 bg-red-400 text-white rounded-2xl hover:bg-red-500 font-bold text-lg shadow-lg focus:outline-none focus:ring-4 focus:ring-red-300"
                   >
-                    I got it wrong
+                    👎 Not yet
                   </button>
                 </div>
               </div>

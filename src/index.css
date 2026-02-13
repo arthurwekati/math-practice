@@ -4,15 +4,27 @@
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Nunito', -apple-system, BlinkMacSystemFont, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 #root {
   min-height: 100vh;
+}
+
+/* Child-friendly bounce on buttons */
+@keyframes gentle-bounce {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+}
+
+.btn-kid:hover {
+  animation: gentle-bounce 0.4s ease;
+}
+
+.btn-kid:active {
+  transform: scale(0.98);
 }
 
 /* Card Flip Styles */
@@ -44,12 +56,13 @@ body {
   right: 0;
   bottom: 0;
   padding: 2rem;
+  border-radius: 1.5rem;
 }
 
-/* Improved focus styles */
+/* Child-friendly focus styles (softer, high contrast) */
 button:focus-visible {
-  outline: 2px solid #6366f1;
-  outline-offset: 2px;
+  outline: 3px solid #f59e0b;
+  outline-offset: 3px;
 }
 
 select:focus-visible {
