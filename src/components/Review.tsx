@@ -5,6 +5,7 @@ import { loadMistakes, removeMistake } from '../utils/storage';
 import { generateChoices } from '../utils/choiceGenerator';
 import { updateStats } from '../utils/storage';
 import { useTimeTracking } from '../hooks/useTimeTracking';
+import confetti from 'canvas-confetti';
 
 export default function Review() {
   const navigate = useNavigate();
@@ -56,6 +57,13 @@ export default function Review() {
 
       // If marked correct, remove from mistake bank
       if (gotItRight) {
+        // Celebrate with confetti when correct!
+        confetti({
+          particleCount: 100,
+          spread: 70,
+          origin: { y: 0.6 },
+          colors: ['#10b981', '#3b82f6', '#8b5cf6', '#f59e0b', '#ef4444'],
+        });
         const updatedMistakes = removeMistake(question.id);
         setMistakes(updatedMistakes);
         

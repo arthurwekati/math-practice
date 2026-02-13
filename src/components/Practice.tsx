@@ -5,6 +5,7 @@ import { generateQuestion } from '../utils/questionGenerator';
 import { generateChoices } from '../utils/choiceGenerator';
 import { updateStats, addMistake } from '../utils/storage';
 import { useTimeTracking } from '../hooks/useTimeTracking';
+import confetti from 'canvas-confetti';
 
 const operationLabels: Record<Operation, string> = {
   add: 'Addition',
@@ -66,6 +67,14 @@ export default function Practice() {
       // Add to mistake bank if wrong
       if (!gotItRight) {
         addMistake(question);
+      } else {
+        // Celebrate with confetti when correct!
+        confetti({
+          particleCount: 100,
+          spread: 70,
+          origin: { y: 0.6 },
+          colors: ['#10b981', '#3b82f6', '#8b5cf6', '#f59e0b', '#ef4444'],
+        });
       }
     }
     generateNewQuestion();
